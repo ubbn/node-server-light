@@ -12,6 +12,22 @@ var server = http.createServer(function (request, response) {
     return;
   }
 
+  if (request.method.toLocaleLowerCase() == 'get') {
+    var data = {
+      data : {
+        languages: [
+          'English',
+          'German',
+          'Spanish',
+          'Swedish'
+        ]
+      }};
+    let responseData = JSON.stringify(data);
+    response.end(responseData);
+    console.log("get: ", responseData);
+    return;
+  }
+
   response.end();
 });
 
