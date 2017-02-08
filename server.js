@@ -1,6 +1,7 @@
 var http = require('http');
 var formidable = require('formidable');
 var util = require('util');
+var uuid = require('node-uuid');
 
 var server = http.createServer(function (request, response) {
   response.setHeader('Access-Control-Allow-Origin', '*');
@@ -19,12 +20,14 @@ function processForm(request, response) {
   
   // parses incoming form
   form.parse(request, function (error, fields) {
+    fields.id = uuid.v4();
+
     // no validation is done, writing successful message
     response.writeHead(200, {
       'content-type': 'text/plain'
     });
 
-    response.end(util.inspect({
+    response.end(JSON.stringify({
       fields: fields
     }));
 
